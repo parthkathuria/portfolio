@@ -1,0 +1,61 @@
+---
+import { SITE } from '../config';
+const links = [
+  { href: '#work', label: 'Work' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' },
+];
+const initials = SITE.name.split(' ').map((w) => w[0]).join('');
+---
+<header class="nav">
+  <div class="nav-inner container">
+    <a href="#top" class="brand" aria-label={`${SITE.name} — home`}>
+      <span class="mark" aria-hidden="true">{initials}</span>
+      <span class="brand-name">{SITE.name}</span>
+    </a>
+    <nav class="links" aria-label="Section navigation">
+      {links.map((l) => (
+        <a href={l.href} data-nav-link>{l.label}</a>
+      ))}
+    </nav>
+    <button id="theme-toggle" type="button" class="toggle" aria-label="Toggle color theme">
+      <span aria-hidden="true">◐</span>
+    </button>
+  </div>
+</header>
+<style>
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: var(--nav-h);
+    background: var(--nav-bg);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { height: 100%; display: flex; align-items: center; gap: 1rem; }
+  .brand { display: flex; align-items: center; gap: .6rem; color: var(--fg); font-weight: 700; }
+  .brand:hover { text-decoration: none; }
+  .mark {
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+    background: var(--accent-grad); color: #fff; font-size: .8rem; font-weight: 800; letter-spacing: -.02em;
+  }
+  .brand-name { font-size: .98rem; }
+  .links { margin-left: auto; display: flex; gap: .35rem; }
+  .links a {
+    color: var(--muted); font-size: .92rem; font-weight: 500; padding: .4rem .7rem; border-radius: 8px;
+    transition: color .15s ease, background .15s ease;
+  }
+  .links a:hover { color: var(--fg); text-decoration: none; background: var(--surface-2); }
+  .links a[data-active] { color: var(--fg); background: var(--accent-soft); }
+  .toggle {
+    display: grid; place-items: center; width: 36px; height: 36px; border-radius: 999px;
+    background: transparent; color: var(--fg); border: 1px solid var(--border-strong); cursor: pointer;
+    transition: background .15s ease;
+  }
+  .toggle:hover { background: var(--surface-2); }
+  @media (max-width: 640px) {
+    .brand-name { display: none; }
+    .links a { padding: .4rem .5rem; font-size: .85rem; }
+  }
+</style>

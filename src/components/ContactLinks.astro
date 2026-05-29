@@ -1,9 +1,14 @@
 ---
 import { SITE, SHOW_RESUME, RESUME_PATH } from '../config';
-interface Props { emailAsAddress?: boolean; }
-const { emailAsAddress = false } = Astro.props;
+interface Props {
+  emailAsAddress?: boolean;
+  /** 'all' = email + socials (+ résumé if enabled); 'social' = LinkedIn + GitHub only. */
+  links?: 'all' | 'social';
+}
+const { emailAsAddress = false, links = 'all' } = Astro.props;
+const showEmail = links === 'all';
 ---
-<a href={`mailto:${SITE.email}`}>{emailAsAddress ? SITE.email : 'Email'}</a>
+{showEmail && <a href={`mailto:${SITE.email}`}>{emailAsAddress ? SITE.email : 'Email'}</a>}
 <a href={SITE.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn</a>
 <a href={SITE.github} rel="noopener noreferrer" target="_blank">GitHub</a>
-{SHOW_RESUME && <a href={RESUME_PATH}>Résumé (PDF)</a>}
+{showEmail && SHOW_RESUME && <a href={RESUME_PATH}>Résumé (PDF)</a>}

@@ -22,10 +22,16 @@ describe('theme', () => {
     expect(getInitialTheme()).toBe('light');
   });
 
-  it('falls back to OS preference when nothing stored', () => {
+  it('defaults to dark when nothing is stored (dark-first design)', () => {
+    mockMatchMedia(false);
+    expect(getInitialTheme()).toBe('dark');
     mockMatchMedia(true);
     expect(getInitialTheme()).toBe('dark');
-    mockMatchMedia(false);
+  });
+
+  it('still respects an explicit stored light choice over the dark default', () => {
+    localStorage.setItem(STORAGE_KEY, 'light');
+    mockMatchMedia(true);
     expect(getInitialTheme()).toBe('light');
   });
 

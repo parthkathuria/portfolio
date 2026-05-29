@@ -1,0 +1,35 @@
+---
+import type { Skill } from '../data/skills';
+interface Props { skill: Skill; }
+const { skill } = Astro.props;
+---
+<div class="tile" title={skill.name}>
+  <div class="glyph">
+    {skill.path ? (
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+        <path d={skill.path} />
+      </svg>
+    ) : (
+      <span class="mono" aria-hidden="true">{skill.mono}</span>
+    )}
+  </div>
+  <span class="name">{skill.name}</span>
+</div>
+<style>
+  .tile {
+    display: flex; flex-direction: column; align-items: center; gap: .55rem;
+    padding: 1rem .5rem; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--surface-2); text-align: center;
+    transition: transform .15s ease, border-color .2s ease, color .2s ease;
+  }
+  .tile:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+  .glyph { color: var(--muted); display: grid; place-items: center; height: 30px; transition: color .2s ease; }
+  .tile:hover .glyph { color: var(--fg); }
+  .mono {
+    font-family: var(--mono); font-weight: 700; font-size: .85rem; letter-spacing: -.02em;
+    color: var(--fg);
+    display: grid; place-items: center; min-width: 30px; height: 30px; padding: 0 .35rem;
+    border-radius: 7px; background: var(--accent-soft);
+  }
+  .name { font-size: .8rem; color: var(--muted); line-height: 1.2; }
+</style>

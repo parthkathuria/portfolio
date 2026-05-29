@@ -6,28 +6,64 @@ interface Props {
 const { title, summary, problem, approach, architecture, impact, tags } = Astro.props;
 const hasNote = Astro.slots.has('default');
 ---
-<article class="card">
-  <h3>{title}</h3>
-  <p class="summary">{summary}</p>
-  <dl>
-    <dt>Problem</dt><dd>{problem}</dd>
-    <dt>Approach</dt><dd>{approach}</dd>
-    <dt>Architecture</dt><dd>{architecture}</dd>
-    <dt>Impact</dt><dd>{impact}</dd>
-  </dl>
-  <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
-  {hasNote && <div class="note"><slot /></div>}
-</article>
+<details class="card">
+  <summary>
+    <div class="head">
+      <h3>{title}</h3>
+      <p class="summary">{summary}</p>
+      <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
+    </div>
+    <span class="chevron" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </span>
+  </summary>
+  <div class="body">
+    <dl>
+      <div><dt>Problem</dt><dd>{problem}</dd></div>
+      <div><dt>Approach</dt><dd>{approach}</dd></div>
+      <div><dt>Architecture</dt><dd>{architecture}</dd></div>
+      <div><dt>Impact</dt><dd>{impact}</dd></div>
+    </dl>
+    {hasNote && <div class="note"><slot /></div>}
+  </div>
+</details>
 <style>
-  .card { border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-  h3 { margin: 0 0 .25rem; font-size: 1.25rem; }
-  .summary { color: var(--muted); margin: 0 0 1rem; }
-  dl { margin: 0; }
-  dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: .75rem; }
-  dd { margin: .15rem 0 0; }
-  .tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 1rem 0 0; }
-  .tags li { font-size: .75rem; font-family: var(--mono); color: var(--accent); }
-  .tags li::before { content: "#"; opacity: .6; }
-  .note { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .95rem; }
+  .card {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    box-shadow: var(--shadow); overflow: hidden;
+    transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); }
+  .card[open] { border-color: var(--border-strong); }
+  summary {
+    list-style: none; cursor: pointer; padding: 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    border-left: 3px solid transparent; transition: border-color .2s ease;
+  }
+  summary::-webkit-details-marker { display: none; }
+  .card[open] summary { border-left-color: var(--accent); }
+  .head { flex: 1; }
+  h3 { margin: 0 0 .4rem; font-size: 1.25rem; }
+  .summary { color: var(--muted); margin: 0 0 .9rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 0; }
+  .tags li {
+    font-size: .72rem; font-family: var(--mono); color: var(--accent);
+    background: var(--accent-soft); padding: .2rem .55rem; border-radius: 999px;
+  }
+  .chevron { color: var(--faint); flex-shrink: 0; transition: transform .2s ease, color .2s ease; }
+  .card:hover .chevron { color: var(--fg); }
+  .card[open] .chevron { transform: rotate(180deg); }
+  .body { padding: 0 1.5rem 1.5rem; }
+  dl { margin: 0; display: grid; gap: 1.1rem; }
+  dt {
+    font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--accent); margin-bottom: .25rem; font-weight: 600;
+  }
+  dd { margin: 0; color: var(--fg); }
+  .note {
+    margin-top: 1.25rem; padding: 1rem 1.1rem; border-radius: var(--radius-sm);
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--muted); font-size: .95rem;
+  }
   .note :global(p) { margin: 0; }
 </style>

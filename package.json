@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
-    "astro": "^4.16.19"
+    "astro": "^4.16.19",
+    "simple-icons": "^16.21.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

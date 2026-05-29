@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import Section from '../components/Section.astro';
 import WorkCard from '../components/WorkCard.astro';
 import SkillGroup from '../components/SkillGroup.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import Footer from '../components/Footer.astro';
 import { SKILLS } from '../data/skills';
-import { SHOW_OSS } from '../config';
+import { SITE, SHOW_OSS } from '../config';
 
 const entries = (await getCollection('work', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
@@ -20,43 +20,120 @@ const work = await Promise.all(
 );
 ---
 <BaseLayout>
-  <ThemeToggle />
+  <Nav />
   <Hero />
   <main id="main">
-    <Section id="work" heading="Selected Work">
-      {work.map((w) => (
-        <WorkCard
-          title={w.data.title}
-          summary={w.data.summary}
-          problem={w.data.problem}
-          approach={w.data.approach}
-          architecture={w.data.architecture}
-          impact={w.data.impact}
-          tags={w.data.tags}
-        >
-          <w.Content />
-        </WorkCard>
-      ))}
-    </Section>
+    <section id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Selected Work</span>
+          <h2>Things I've shipped.</h2>
+          <p class="lead">Case studies in AI-native tooling, language infrastructure, and distributed systems at scale. Click any card to read the full story.</p>
+        </div>
+        <div class="work-list">
+          {work.map((w, i) => (
+            <div class="reveal" data-delay={(i % 3) + 1}>
+              <WorkCard
+                title={w.data.title}
+                summary={w.data.summary}
+                problem={w.data.problem}
+                approach={w.data.approach}
+                architecture={w.data.architecture}
+                impact={w.data.impact}
+                tags={w.data.tags}
+              >
+                <w.Content />
+              </WorkCard>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <Section id="skills" heading="Skills">
-      {SKILLS.map((g) => <SkillGroup group={g} />)}
-    </Section>
+    <section id="skills" class="alt">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Toolbox</span>
+          <h2>Skills &amp; technologies.</h2>
+          <p class="lead">A decade across languages, AI tooling, cloud platforms, and data systems.</p>
+        </div>
+        <div class="reveal">
+          {SKILLS.map((g) => <SkillGroup group={g} />)}
+        </div>
+      </div>
+    </section>
 
-    <Section id="about" heading="About">
-      <p>
-        Senior software engineer with 10+ years building platform modernization
-        programs, developer tooling, and event-driven systems. I focus on making
-        complex migrations safe and fast — pairing deterministic engineering with
-        AI where it earns its place, and measuring quality instead of trusting it.
-      </p>
-    </Section>
+    <section id="about">
+      <div class="container about-grid">
+        <div class="section-head reveal">
+          <span class="eyebrow">About</span>
+          <h2>Engineering for leverage.</h2>
+        </div>
+        <div class="about-body reveal" data-delay="1">
+          <p>
+            I'm a senior software engineer with 10+ years building platform
+            modernization programs, developer tooling, and event-driven systems.
+            My focus: making complex migrations safe and fast — pairing
+            deterministic engineering with AI where it earns its place, and
+            measuring quality instead of trusting it.
+          </p>
+          <p class="muted">
+            Lately that means agentic pipelines over the Model Context Protocol,
+            language servers that make codebases legible to both humans and
+            agents, and the IDE tooling that ties it together.
+          </p>
+        </div>
+      </div>
+    </section>
 
     {SHOW_OSS && (
-      <Section id="oss" heading="Open Source">
-        <p class="muted">Selected public projects — coming soon.</p>
-      </Section>
+      <section id="oss" class="alt">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Open Source</span>
+            <h2>Public projects.</h2>
+            <p class="lead">Selected open-source work — coming soon.</p>
+          </div>
+        </div>
+      </section>
     )}
+
+    <section id="contact" class="alt">
+      <div class="container contact reveal">
+        <span class="eyebrow">Contact</span>
+        <h2>Let's build something.</h2>
+        <p class="lead">Open to senior and staff engineering roles in developer tooling, AI infrastructure, and platforms.</p>
+        <div class="contact-cta">
+          <a class="btn btn-primary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </div>
+        <nav class="contact-socials" aria-label="Profiles">
+          <ContactLinks links="social" />
+        </nav>
+      </div>
+    </section>
   </main>
   <Footer />
 </BaseLayout>
+
+<script>
+  import { toggleTheme } from '../scripts/theme';
+  import { initReveal, initScrollSpy } from '../scripts/reveal';
+  document.getElementById('theme-toggle')?.addEventListener('click', () => toggleTheme());
+  initReveal();
+  initScrollSpy();
+</script>
+
+<style>
+  .work-list { display: grid; gap: 1.25rem; max-width: 52rem; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2.5rem; align-items: start; }
+  .about-body p { font-size: 1.15rem; }
+  .contact { text-align: center; max-width: 40rem; margin-inline: auto; }
+  .contact .eyebrow { color: var(--accent); }
+  .contact-cta { margin: 1.5rem 0 1rem; }
+  .contact-socials { display: flex; gap: 1.25rem; justify-content: center; }
+  .contact-socials :global(a) { color: var(--muted); }
+  .contact-socials :global(a:hover) { color: var(--fg); }
+  @media (max-width: 760px) {
+    .about-grid { grid-template-columns: 1fr; gap: 1rem; }
+  }
+</style>
