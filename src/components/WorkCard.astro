@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string; summary: string; problem: string; approach: string;
+  architecture: string; impact: string; tags: string[];
+}
+const { title, summary, problem, approach, architecture, impact, tags } = Astro.props;
+---
+<article class="card">
+  <h3>{title}</h3>
+  <p class="summary">{summary}</p>
+  <dl>
+    <dt>Problem</dt><dd>{problem}</dd>
+    <dt>Approach</dt><dd>{approach}</dd>
+    <dt>Architecture</dt><dd>{architecture}</dd>
+    <dt>Impact</dt><dd>{impact}</dd>
+  </dl>
+  <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
+  <slot />
+</article>
+<style>
+  .card { border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  h3 { margin: 0 0 .25rem; font-size: 1.25rem; }
+  .summary { color: var(--muted); margin: 0 0 1rem; }
+  dl { margin: 0; }
+  dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: .75rem; }
+  dd { margin: .15rem 0 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 1rem 0 0; }
+  .tags li { font-size: .75rem; font-family: var(--mono); color: var(--accent); }
+  .tags li::before { content: "#"; opacity: .6; }
+</style>

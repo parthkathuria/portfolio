@@ -1,0 +1,21 @@
+---
+import { SITE, SHOW_RESUME, RESUME_PATH } from '../config';
+---
+<header class="hero container">
+  <h1>{SITE.name}</h1>
+  <p class="role muted">{SITE.title}</p>
+  <p class="tagline">{SITE.tagline}</p>
+  <nav class="cta" aria-label="Primary contact">
+    <a href={`mailto:${SITE.email}`}>Email</a>
+    <a href={SITE.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn</a>
+    <a href={SITE.github} rel="noopener noreferrer" target="_blank">GitHub</a>
+    {SHOW_RESUME && <a href={RESUME_PATH}>Résumé (PDF)</a>}
+  </nav>
+</header>
+<style>
+  .hero { padding: 4rem 1.25rem 2rem; }
+  .role { font-size: 1.1rem; margin: 0 0 1.25rem; }
+  .tagline { font-size: 1.25rem; max-width: 34rem; margin: 0 0 1.5rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .cta a { font-weight: 600; }
+</style>

@@ -1,0 +1,12 @@
+<button id="theme-toggle" type="button" aria-label="Toggle color theme">◐</button>
+<script>
+  import { toggleTheme } from '../scripts/theme';
+  document.getElementById('theme-toggle')?.addEventListener('click', () => toggleTheme());
+</script>
+<style>
+  #theme-toggle {
+    position: fixed; top: 1rem; right: 1rem; z-index: 5;
+    background: var(--bg); color: var(--fg); border: 1px solid var(--border);
+    border-radius: 999px; width: 2.5rem; height: 2.5rem; font-size: 1.1rem; cursor: pointer;
+  }
+</style>
