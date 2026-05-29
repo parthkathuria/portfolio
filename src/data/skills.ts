@@ -15,6 +15,14 @@ import awsSvg from 'devicon/icons/amazonwebservices/amazonwebservices-original-w
 // Generic database glyph (currentColor) for SQL Server.
 const dbSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>`;
 
+// Flatten brand logos to a single tone so the grid stays consistent with the
+// monochrome simple-icons. Preserves fill="none" (outlined glyphs).
+const monochrome = (svg: string): string =>
+  svg
+    .replace(/fill="(?!none")[^"]*"/g, 'fill="currentColor"')
+    .replace(/fill:\s*#[0-9a-fA-F]{3,8}/g, 'fill:currentColor')
+    .replace(/fill:\s*url\([^)]*\)/g, 'fill:currentColor');
+
 export interface Skill {
   /** Display name shown under the icon. */
   name: string;
@@ -39,7 +47,7 @@ export const SKILLS: SkillGroupData[] = [
   {
     label: 'Languages',
     items: [
-      raw(javaSvg, 'Java'),
+      raw(monochrome(javaSvg), 'Java'),
       ic(siGo, 'Go'),
       ic(siPython, 'Python'),
       ic(siTypescript, 'TypeScript'),
@@ -47,7 +55,7 @@ export const SKILLS: SkillGroupData[] = [
       ic(siNodedotjs, 'Node.js'),
       ic(siC, 'C'),
       ic(siCplusplus, 'C++'),
-      raw(csharpSvg, 'C#'),
+      raw(monochrome(csharpSvg), 'C#'),
       ic(siGnubash, 'Bash'),
     ],
   },
@@ -56,7 +64,7 @@ export const SKILLS: SkillGroupData[] = [
     items: [
       mono('Model Context Protocol', 'MCP'),
       mono('Language Server Protocol', 'LSP'),
-      raw(vscodeSvg, 'VS Code Extensions'),
+      raw(monochrome(vscodeSvg), 'VS Code Extensions'),
       ic(siClaude, 'Claude'),
       ic(siCursor, 'Cursor'),
       mono('GPT Codex', 'GPT'),
@@ -65,8 +73,8 @@ export const SKILLS: SkillGroupData[] = [
   {
     label: 'Cloud & DevOps',
     items: [
-      raw(awsSvg, 'AWS'),
-      raw(azureSvg, 'Azure'),
+      raw(monochrome(awsSvg), 'AWS'),
+      raw(monochrome(azureSvg), 'Azure'),
       ic(siDocker, 'Docker'),
       mono('GraalVM', 'GV'),
       ic(siJenkins, 'Jenkins'),
