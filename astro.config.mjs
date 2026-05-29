@@ -3,6 +3,8 @@ import { execSync } from 'node:child_process';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // Resolve a short commit hash at build time: Cloudflare Pages provides
 // CF_PAGES_COMMIT_SHA; locally fall back to git; otherwise "local".
 let commit = 'local';
@@ -15,9 +17,12 @@ try {
 // Update `site` to the final Cloudflare Pages URL or custom domain before deploy.
 export default defineConfig({
   site: 'https://parthkathuria.pages.dev',
-  output: 'static',
+  output: "hybrid",
   integrations: [sitemap()],
+
   vite: {
     define: { __COMMIT__: JSON.stringify(commit) },
   },
+
+  adapter: cloudflare()
 });
