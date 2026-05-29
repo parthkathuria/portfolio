@@ -1,11 +1,11 @@
 ---
 import { SITE } from '../config';
 import ContactLinks from './ContactLinks.astro';
-const stats = [
-  { value: '10+', label: 'Years shipping' },
-  { value: '15x', label: 'Build speedup' },
-  { value: '650k+', label: 'Devices at scale' },
-  { value: '$20k/yr', label: 'Infra saved' },
+const metrics = [
+  { value: '10+ yrs', label: 'shipping production software' },
+  { value: '650k+', label: 'devices monitored at scale' },
+  { value: '15×', label: 'faster clean builds' },
+  { value: '$20k/yr', label: 'infrastructure saved' },
 ];
 ---
 <section id="top" class="hero">
@@ -14,7 +14,7 @@ const stats = [
     <p class="pill reveal"><span class="dot"></span> Senior Software Engineer · Open to opportunities</p>
     <h1 class="reveal" data-delay="1">
       Hi, I'm {SITE.name}.<br />
-      I build <span class="grad">AI-native developer tooling</span>.
+      I build AI-native developer tooling and <span class="grad">distributed systems at scale</span>.
     </h1>
     <p class="tagline reveal" data-delay="2">{SITE.tagline}</p>
     <div class="cta reveal" data-delay="3">
@@ -26,11 +26,11 @@ const stats = [
     </nav>
   </div>
   <div class="container">
-    <dl class="stats reveal">
-      {stats.map((s) => (
-        <div class="stat">
-          <dt class="grad">{s.value}</dt>
-          <dd>{s.label}</dd>
+    <dl class="metrics reveal">
+      {metrics.map((m) => (
+        <div class="metric">
+          <dt>{m.value}</dt>
+          <dd>{m.label}</dd>
         </div>
       ))}
     </dl>
@@ -59,14 +59,11 @@ const stats = [
   .socials { display: flex; gap: 1.25rem; font-size: .95rem; }
   .socials :global(a) { color: var(--muted); }
   .socials :global(a:hover) { color: var(--fg); }
-  .stats {
-    margin: 4rem 0 0; padding: 1.75rem; display: grid; gap: 1rem;
-    grid-template-columns: repeat(4, 1fr);
-    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+  .metrics {
+    margin: 3rem 0 0; padding: 1.5rem 0 0; border-top: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; gap: .75rem 2.25rem;
   }
-  .stat dt { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; }
-  .stat dd { margin: .25rem 0 0; color: var(--muted); font-size: .9rem; }
-  @media (max-width: 640px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
-  }
+  .metric { display: flex; align-items: baseline; gap: .5rem; }
+  .metric dt { font-size: 1rem; font-weight: 700; color: var(--fg); letter-spacing: -.01em; }
+  .metric dd { margin: 0; color: var(--muted); font-size: .9rem; }
 </style>
