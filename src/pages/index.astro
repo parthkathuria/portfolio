@@ -6,7 +6,6 @@ import Hero from '../components/Hero.astro';
 import WorkCard from '../components/WorkCard.astro';
 import SkillGroup from '../components/SkillGroup.astro';
 import ContactLinks from '../components/ContactLinks.astro';
-import Terminal from '../components/Terminal.astro';
 import Footer from '../components/Footer.astro';
 import { SKILLS } from '../data/skills';
 import { ALSO_SHIPPED } from '../data/alsoShipped';
@@ -16,6 +15,7 @@ const entries = (await getCollection('work', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 const work = await Promise.all(
   entries.map(async (entry) => ({
+    id: entry.slug,
     data: entry.data,
     Content: (await entry.render()).Content,
   }))
@@ -37,6 +37,7 @@ const work = await Promise.all(
             <WorkCard
               class="reveal"
               data-delay={(i % 2) + 1}
+              id={w.id}
               title={w.data.title}
               summary={w.data.summary}
               problem={w.data.problem}
@@ -84,26 +85,21 @@ const work = await Promise.all(
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">About</span>
-          <h2>Engineering for leverage.</h2>
+          <h2>How I work.</h2>
         </div>
-        <div class="about-cols">
-          <div class="reveal">
-            <Terminal />
-          </div>
-          <div class="about-body reveal" data-delay="1">
-            <p>
-              I'm a senior software engineer with 10+ years building platform
-              modernization programs, developer tooling, and event-driven systems.
-              My focus: making complex migrations safe and fast — pairing
-              deterministic engineering with AI where it earns its place, and
-              measuring quality instead of trusting it.
-            </p>
-            <p class="muted">
-              Lately that means agentic pipelines over the Model Context Protocol,
-              language servers that make codebases legible to both humans and
-              agents, and the IDE tooling that ties it together.
-            </p>
-          </div>
+        <div class="about-body reveal" data-delay="1">
+          <p>
+            I'm a senior software engineer with 10+ years building platform
+            modernization programs, developer tooling, and event-driven systems.
+            My focus: making complex migrations safe and fast — pairing
+            deterministic engineering with AI where it earns its place, and
+            measuring quality instead of trusting it.
+          </p>
+          <p class="muted">
+            Lately that means agentic pipelines over the Model Context Protocol,
+            language servers that make codebases legible to both humans and
+            agents, and the IDE tooling that ties it together.
+          </p>
         </div>
       </div>
     </section>
@@ -140,17 +136,17 @@ const work = await Promise.all(
 <script>
   import { toggleTheme } from '../scripts/theme';
   import { initReveal, initScrollSpy } from '../scripts/reveal';
+  import { initModals } from '../scripts/modal';
   document.getElementById('theme-toggle')?.addEventListener('click', () => toggleTheme());
   initReveal();
   initScrollSpy();
+  initModals();
 </script>
 
 <style>
-  .work-grid {
-    display: grid; gap: 1.25rem;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: start;
-  }
+  /* masonry via CSS multi-column — tiles of varying height pack with no gaps */
+  .work-grid { columns: 2; column-gap: 1.25rem; }
+  .work-grid > :global(.card) { break-inside: avoid; margin: 0 0 1.25rem; width: 100%; }
 
   .also { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .also-head { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 600; margin: 0 0 1.25rem; }
@@ -160,8 +156,8 @@ const work = await Promise.all(
   .also-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); background: var(--accent-soft); padding: .15rem .5rem; border-radius: 999px; }
   .also-detail { color: var(--muted); margin: .3rem 0 0; font-size: .95rem; }
 
-  .about-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
-  .about-body p { font-size: 1.15rem; margin-top: 0; }
+  .about-body { max-width: var(--maxw-read); }
+  .about-body p { font-size: 1.2rem; margin-top: 0; }
   .about-body p:last-child { margin-bottom: 0; }
   .contact { text-align: center; max-width: 40rem; margin-inline: auto; }
   .contact .eyebrow { color: var(--accent); }
@@ -170,9 +166,6 @@ const work = await Promise.all(
   .contact-socials :global(a) { color: var(--muted); }
   .contact-socials :global(a:hover) { color: var(--fg); }
   @media (max-width: 860px) {
-    .work-grid { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 760px) {
-    .about-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+    .work-grid { columns: 1; }
   }
 </style>
