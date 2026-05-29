@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://parthkathuria.pages.dev/sitemap-index.xml
