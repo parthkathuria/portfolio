@@ -82,6 +82,7 @@ for (const w of work) {
               <li>
                 <div class="also-top">
                   <span class="also-title">{item.title}</span>
+                  <span class="also-company">{item.company}</span>
                   <span class="also-tag">{item.tag}</span>
                 </div>
                 <p class="also-detail">{item.detail}</p>
@@ -191,6 +192,7 @@ for (const w of work) {
   .also-top { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; }
   .also-title { font-weight: 600; font-size: 1.02rem; }
   .also-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); background: var(--accent-soft); padding: .15rem .5rem; border-radius: 999px; }
+  .also-company { font-family: var(--mono); font-size: .68rem; color: var(--muted); border: 1px solid var(--border-strong); padding: .15rem .5rem; border-radius: 999px; }
   .also-detail { color: var(--muted); margin: .3rem 0 0; font-size: .95rem; }
 
   .about-body { max-width: var(--maxw-read); }
