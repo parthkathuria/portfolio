@@ -6,8 +6,10 @@ import Hero from '../components/Hero.astro';
 import WorkCard from '../components/WorkCard.astro';
 import SkillGroup from '../components/SkillGroup.astro';
 import ContactLinks from '../components/ContactLinks.astro';
+import Terminal from '../components/Terminal.astro';
 import Footer from '../components/Footer.astro';
 import { SKILLS } from '../data/skills';
+import { ALSO_SHIPPED } from '../data/alsoShipped';
 import { SITE, SHOW_OSS } from '../config';
 
 const entries = (await getCollection('work', ({ data }) => !data.draft))
@@ -47,6 +49,21 @@ const work = await Promise.all(
             </div>
           ))}
         </div>
+
+        <div class="also reveal">
+          <h3 class="also-head">Also shipped</h3>
+          <ul class="also-list">
+            {ALSO_SHIPPED.map((item) => (
+              <li>
+                <div class="also-top">
+                  <span class="also-title">{item.title}</span>
+                  <span class="also-tag">{item.tag}</span>
+                </div>
+                <p class="also-detail">{item.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -65,9 +82,12 @@ const work = await Promise.all(
 
     <section id="about">
       <div class="container about-grid">
-        <div class="section-head reveal">
-          <span class="eyebrow">About</span>
-          <h2>Engineering for leverage.</h2>
+        <div class="about-left reveal">
+          <div class="section-head">
+            <span class="eyebrow">About</span>
+            <h2>Engineering for leverage.</h2>
+          </div>
+          <Terminal />
         </div>
         <div class="about-body reveal" data-delay="1">
           <p>
@@ -125,7 +145,17 @@ const work = await Promise.all(
 
 <style>
   .work-list { display: grid; gap: 1.25rem; max-width: 52rem; }
-  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 2.5rem; align-items: start; }
+
+  .also { max-width: 52rem; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .also-head { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--faint); font-weight: 600; margin: 0 0 1.25rem; }
+  .also-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; }
+  .also-top { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; }
+  .also-title { font-weight: 600; font-size: 1.02rem; }
+  .also-tag { font-family: var(--mono); font-size: .68rem; color: var(--accent); background: var(--accent-soft); padding: .15rem .5rem; border-radius: 999px; }
+  .also-detail { color: var(--muted); margin: .3rem 0 0; font-size: .95rem; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .about-left .section-head { margin-bottom: 1.5rem; }
   .about-body p { font-size: 1.15rem; }
   .contact { text-align: center; max-width: 40rem; margin-inline: auto; }
   .contact .eyebrow { color: var(--accent); }
