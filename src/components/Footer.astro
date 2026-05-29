@@ -2,14 +2,30 @@
 import { SITE } from '../config';
 import ContactLinks from './ContactLinks.astro';
 const year = new Date().getFullYear();
+const commit = __COMMIT__;
 ---
 <footer class="container">
   <nav aria-label="Footer links">
     <ContactLinks emailAsAddress />
   </nav>
-  <p class="muted">© {year} {SITE.name}</p>
+  <p class="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span>open to opportunities</span>
+    <span class="sep">·</span>
+    <span>build {commit}</span>
+    <span class="sep">·</span>
+    <span>astro · cloudflare</span>
+  </p>
+  <p class="muted copy">© {year} {SITE.name}</p>
 </footer>
 <style>
   footer { padding: 3rem 1.25rem 4rem; border-top: 1px solid var(--border); margin-top: 4rem; }
-  nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+  nav { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; }
+  .status {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+    font-family: var(--mono); font-size: .8rem; color: var(--faint); margin: 0 0 .5rem;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 3px rgba(52,211,153,.18); }
+  .sep { color: var(--border-strong); }
+  .copy { font-size: .85rem; margin: 0; }
 </style>

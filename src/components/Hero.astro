@@ -2,10 +2,10 @@
 import { SITE } from '../config';
 import ContactLinks from './ContactLinks.astro';
 const metrics = [
-  { value: '10+ yrs', label: 'shipping production software' },
-  { value: '650k+', label: 'devices monitored at scale' },
-  { value: '15×', label: 'faster clean builds' },
-  { value: '$20k/yr', label: 'infrastructure saved' },
+  { num: 10, prefix: '', suffix: '+ yrs', label: 'shipping production software' },
+  { num: 650, prefix: '', suffix: 'k+', label: 'devices monitored at scale' },
+  { num: 15, prefix: '', suffix: '×', label: 'faster clean builds' },
+  { num: 20, prefix: '$', suffix: 'k/yr', label: 'infrastructure saved' },
 ];
 ---
 <section id="top" class="hero">
@@ -29,7 +29,7 @@ const metrics = [
     <dl class="metrics reveal">
       {metrics.map((m) => (
         <div class="metric">
-          <dt>{m.value}</dt>
+          <dt>{m.prefix}<span class="count" data-count-to={m.num}>{m.num}</span>{m.suffix}</dt>
           <dd>{m.label}</dd>
         </div>
       ))}

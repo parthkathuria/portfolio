@@ -43,11 +43,19 @@ const titleId = `${dialogId}-title`;
 
 <style>
   .card {
+    position: relative;
     border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
     box-shadow: var(--shadow); overflow: hidden;
     transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
   }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+    background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--accent-soft), transparent 60%);
+    opacity: 0; transition: opacity .25s ease;
+  }
+  .card:hover::before { opacity: 1; }
   .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); }
+  .card-btn { position: relative; z-index: 1; }
   .card-btn {
     display: block; width: 100%; text-align: left; cursor: pointer;
     background: none; border: 0; color: inherit; font: inherit;

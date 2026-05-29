@@ -138,10 +138,13 @@ const work = await Promise.all(
   import { toggleTheme } from '../scripts/theme';
   import { initReveal, initScrollSpy } from '../scripts/reveal';
   import { initModals } from '../scripts/modal';
+  import { initCountUp, initCardGlow } from '../scripts/effects';
   document.getElementById('theme-toggle')?.addEventListener('click', () => toggleTheme());
   initReveal();
   initScrollSpy();
   initModals();
+  initCountUp();
+  initCardGlow();
 </script>
 
 <style>
