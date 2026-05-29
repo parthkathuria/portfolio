@@ -15,7 +15,7 @@ export const ALSO_SHIPPED: AlsoShippedItem[] = [
     title: 'Java 21 & React 18 Upgrades',
     detail:
       'Completed Java 21 and React 18 upgrades for all owned services ahead of mandate deadlines, achieving full compliance on the internal production-readiness dashboard.',
-    tag: 'Modernization',
+    tag: 'Operational Excellence',
   },
   {
     title: 'Solar Telemetry Collection & Dashboard (Internship)',
