@@ -82,4 +82,4 @@ Open to senior and staff engineering roles across distributed systems, AI infras
 
 ---
 
-<sub>This repo is my portfolio site — built with [Astro](https://astro.build), deployed on Cloudflare Pages. Run `npm install && npm run dev` to start it locally at `localhost:4321`.</sub>
+<sub>This repo is my portfolio site — built with [Astro](https://astro.build), deployed on Cloudflare Pages.</sub>
