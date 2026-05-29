@@ -5,7 +5,9 @@ const { skill } = Astro.props;
 ---
 <div class="tile" title={skill.name}>
   <div class="glyph">
-    {skill.path ? (
+    {skill.svg ? (
+      <Fragment set:html={skill.svg} />
+    ) : skill.path ? (
       <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
         <path d={skill.path} />
       </svg>
@@ -23,8 +25,13 @@ const { skill } = Astro.props;
     transition: transform .15s ease, border-color .2s ease, color .2s ease;
   }
   .tile:hover { transform: translateY(-3px); border-color: var(--border-strong); }
-  .glyph { color: var(--muted); display: grid; place-items: center; height: 30px; transition: color .2s ease; }
+  .glyph {
+    color: var(--muted); display: grid; place-items: center; height: 30px;
+    transition: color .2s ease;
+  }
   .tile:hover .glyph { color: var(--fg); }
+  /* normalize any icon svg (inline path or injected brand logo) to a consistent height */
+  .glyph :global(svg) { height: 26px; width: auto; max-width: 52px; display: block; }
   .mono {
     font-family: var(--mono); font-weight: 700; font-size: .85rem; letter-spacing: -.02em;
     color: var(--fg);
