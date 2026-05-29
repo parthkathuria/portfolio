@@ -1,5 +1,6 @@
 ---
 title: IDE-Native Developer Tooling (VSCode Extensions)
+company: Intuit
 summary: Unified diagnostics, deployment, and localization authoring into VSCode extensions — projected +30% and measured +50% developer productivity.
 problem: Tax developers were context-switching across scattered command-line tools and web dashboards to diagnose, deploy, and author form localization (NLS) files. The localization workflow in particular was a recurring source of malformed JSON that only surfaced downstream, costing real time and trust.
 approach: I led end-to-end delivery of IDE-native tooling that brings the work to where developers already are. Rather than another external dashboard, the diagnostic and deployment workflows became a single in-editor experience, and the localization authoring tool validated JSON in real time as developers typed — backed by MCP integration so the editor has the context it needs.

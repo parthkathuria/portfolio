@@ -20,6 +20,22 @@ const work = await Promise.all(
     Content: (await entry.render()).Content,
   }))
 );
+
+const COMPANY_META: Record<string, string> = {
+  Intuit: 'Senior Software Engineer · 2021–Present',
+  'NEXTracker (NEXTPower), Inc': 'Software Development Engineer · 2016–2021',
+};
+
+// Group projects by company, preserving order (Intuit first, then NEXTracker).
+const byCompany: { company: string; items: typeof work }[] = [];
+for (const w of work) {
+  let group = byCompany.find((g) => g.company === w.data.company);
+  if (!group) {
+    group = { company: w.data.company, items: [] };
+    byCompany.push(group);
+  }
+  group.items.push(w);
+}
 ---
 <BaseLayout>
   <Nav />
@@ -32,24 +48,32 @@ const work = await Promise.all(
           <h2>Things I've built.</h2>
           <p class="lead">Projects I worked on or led across AI-native tooling, language infrastructure, and distributed systems at scale. Tap any tile to expand the details.</p>
         </div>
-        <div class="work-grid">
-          {work.map((w, i) => (
-            <WorkCard
-              class="reveal"
-              data-delay={(i % 2) + 1}
-              id={w.id}
-              title={w.data.title}
-              summary={w.data.summary}
-              problem={w.data.problem}
-              approach={w.data.approach}
-              architecture={w.data.architecture}
-              impact={w.data.impact}
-              tags={w.data.tags}
-            >
-              <w.Content />
-            </WorkCard>
-          ))}
-        </div>
+        {byCompany.map((group) => (
+          <div class="company">
+            <div class="company-head reveal">
+              <h3 class="company-name">{group.company}</h3>
+              <span class="company-meta">{COMPANY_META[group.company]}</span>
+            </div>
+            <div class="work-grid">
+              {group.items.map((w, i) => (
+                <WorkCard
+                  class="reveal"
+                  data-delay={(i % 2) + 1}
+                  id={w.id}
+                  title={w.data.title}
+                  summary={w.data.summary}
+                  problem={w.data.problem}
+                  approach={w.data.approach}
+                  architecture={w.data.architecture}
+                  impact={w.data.impact}
+                  tags={w.data.tags}
+                >
+                  <w.Content />
+                </WorkCard>
+              ))}
+            </div>
+          </div>
+        ))}
 
         <div class="also reveal">
           <h3 class="also-head">Also shipped</h3>
@@ -148,6 +172,15 @@ const work = await Promise.all(
 </script>
 
 <style>
+  .company { margin-bottom: 3rem; }
+  .company:last-of-type { margin-bottom: 0; }
+  .company-head {
+    display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap;
+    margin-bottom: 1.25rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border);
+  }
+  .company-name { font-size: 1.15rem; margin: 0; }
+  .company-meta { font-family: var(--mono); font-size: .8rem; color: var(--faint); }
+
   /* masonry via CSS multi-column — tiles of varying height pack with no gaps */
   .work-grid { columns: 2; column-gap: 1.25rem; }
   .work-grid > :global(.card) { break-inside: avoid; margin: 0 0 1.25rem; width: 100%; }

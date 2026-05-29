@@ -1,5 +1,6 @@
 ---
 title: Telemetry Pipeline at 650k+ Devices
+company: "NEXTracker (NEXTPower), Inc"
 summary: Built a distributed pipeline collecting real-time telemetry from 650,000+ solar trackers worldwide, with a 99% uptime database migration.
 problem: A global solar fleet of 650,000+ trackers needed real-time monitoring and remote control. The telemetry had to be reliable enough to drive operational decisions and feed a proprietary predictive tracking algorithm — at a scale where backpressure, partial failure, and schema drift are constant, and where the fleet can't tolerate maintenance windows.
 approach: I built the data pipeline end to end — edge collection, ingestion, storage, and a monitoring/configuration dashboard for both internal teams and customers — and designed the IoT data-management device that anchors collection at the edge. I also automated the configuration and deployment of the predictive tracking algorithm so rolling it out stopped being a manual, error-prone chore.

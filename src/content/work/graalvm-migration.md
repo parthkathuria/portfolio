@@ -1,5 +1,6 @@
 ---
 title: Print-Engine Migration to GraalVM Native Image
+company: Intuit
 summary: Migrated the tax-form print engine off a legacy Java→.NET bridge to a GraalVM native image for Java 11, coordinated across TurboTax Desktop and ProSeries.
 problem: The tax-form print engine ran through a legacy Java-to-.NET bridge (IKVM) that blocked a Java 11 upgrade and tied two major desktop products to an aging, hard-to-maintain interop layer. Staying put meant carrying that liability indefinitely; moving meant touching a component both TurboTax Desktop and ProSeries depend on to render correct tax forms.
 approach: I led the migration from the IKVM bridge to a GraalVM native image, getting the engine to Java 11 compatibility while preserving exact print output. Because the engine is shared, the work was as much cross-team coordination as it was code — sequencing and validating delivery across two product lines that could not afford print regressions.

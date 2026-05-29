@@ -1,5 +1,6 @@
 ---
 title: Tax-Calculation Authoring Tool on AWS
+company: Intuit
 summary: Architected an event-driven authoring & debugging tool on AWS — then led its strategic deprecation, saving ~$20k/yr.
 problem: Authoring and debugging tax calculations was slow and opaque. The team needed a faster way to author calculation logic and inspect its behavior, without standing up and babysitting long-lived infrastructure.
 approach: I architected an event-driven microservice system on AWS so the tool scaled with demand instead of running idle capacity. Later, when usage and the surrounding platform shifted, I made the harder, less glamorous call — rather than keep a system alive for its own sake, I led its strategic deprecation and migrated off it cleanly.
