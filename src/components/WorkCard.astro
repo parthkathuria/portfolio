@@ -4,6 +4,7 @@ interface Props {
   architecture: string; impact: string; tags: string[];
 }
 const { title, summary, problem, approach, architecture, impact, tags } = Astro.props;
+const hasNote = Astro.slots.has('default');
 ---
 <article class="card">
   <h3>{title}</h3>
@@ -15,7 +16,7 @@ const { title, summary, problem, approach, architecture, impact, tags } = Astro.
     <dt>Impact</dt><dd>{impact}</dd>
   </dl>
   <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
-  <slot />
+  {hasNote && <div class="note"><slot /></div>}
 </article>
 <style>
   .card { border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
@@ -27,4 +28,6 @@ const { title, summary, problem, approach, architecture, impact, tags } = Astro.
   .tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 1rem 0 0; }
   .tags li { font-size: .75rem; font-family: var(--mono); color: var(--accent); }
   .tags li::before { content: "#"; opacity: .6; }
+  .note { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .95rem; }
+  .note :global(p) { margin: 0; }
 </style>

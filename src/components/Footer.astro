@@ -1,13 +1,11 @@
 ---
-import { SITE, SHOW_RESUME, RESUME_PATH } from '../config';
+import { SITE } from '../config';
+import ContactLinks from './ContactLinks.astro';
 const year = new Date().getFullYear();
 ---
 <footer class="container">
   <nav aria-label="Footer links">
-    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-    <a href={SITE.linkedin} rel="noopener noreferrer" target="_blank">LinkedIn</a>
-    <a href={SITE.github} rel="noopener noreferrer" target="_blank">GitHub</a>
-    {SHOW_RESUME && <a href={RESUME_PATH}>Résumé (PDF)</a>}
+    <ContactLinks emailAsAddress />
   </nav>
   <p class="muted">© {year} {SITE.name}</p>
 </footer>
