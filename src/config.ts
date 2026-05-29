@@ -1,7 +1,7 @@
 export const SITE = {
   name: 'Parth Kathuria',
   title: 'Senior Software Engineer',
-  tagline: 'Senior software engineer with 10+ years across platform modernization, developer tooling, and large-scale distributed systems — from agentic MCP pipelines to real-time telemetry across 650k+ devices.',
+  tagline: 'Senior software engineer with 10+ years across platform modernization, developer tooling, and large-scale distributed systems — from agentic pipelines to real-time telemetry across 650k+ devices.',
   email: 'parthkathuria09@gmail.com',
   linkedin: 'https://linkedin.com/in/parthkathuria',
   github: 'https://github.com/parthkathuria',
