@@ -32,7 +32,7 @@ const jsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={SITE.description} />
     <meta name="twitter:image" content={ogImage} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Theme bootstrap: runs before paint to avoid flash of wrong theme -->
     <script is:inline>
       (function () {
