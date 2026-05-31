@@ -38,6 +38,24 @@ export function initCountUp(): void {
   });
 }
 
+// Assemble obfuscated emails at runtime. Any <a data-eu data-ed> gets a real
+// mailto href; if it also has data-show="address", its inner <span> (or the
+// link text) is set to the full address. Static HTML never holds "user@domain".
+export function initEmail(): void {
+  document.querySelectorAll<HTMLAnchorElement>('a[data-eu][data-ed]').forEach((a) => {
+    const u = a.dataset.eu;
+    const d = a.dataset.ed;
+    if (!u || !d) return;
+    const addr = `${u}@${d}`;
+    a.href = `mailto:${addr}`;
+    if (a.dataset.show === 'address') {
+      const span = a.querySelector('span');
+      if (span) span.textContent = addr;
+      else a.textContent = addr;
+    }
+  });
+}
+
 // Pointer-follow glow on project tiles: track the cursor as CSS custom
 // properties the card's ::before reads.
 export function initCardGlow(): void {

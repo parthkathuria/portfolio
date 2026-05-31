@@ -1,0 +1,14 @@
+---
+import { siGmail } from 'simple-icons';
+import { SITE } from '../config';
+// Split so the static HTML never contains the literal "user@domain" string.
+const [user, domain] = SITE.email.split('@');
+---
+<a class="email-obf" data-eu={user} data-ed={domain} data-show="address" href="#" aria-label="Email me">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGmail.path} /></svg>
+  <span>{user} <span aria-hidden="true">[at]</span> {domain}</span>
+</a>
+<style>
+  .email-obf { display: inline-flex; align-items: center; gap: .4rem; }
+  .email-obf svg { width: 1.05em; height: 1.05em; flex-shrink: 0; }
+</style>

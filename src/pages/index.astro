@@ -36,6 +36,8 @@ for (const w of work) {
   }
   group.items.push(w);
 }
+
+const [emailUser, emailDomain] = SITE.email.split('@');
 ---
 <BaseLayout>
   <Nav />
@@ -148,7 +150,9 @@ for (const w of work) {
         <h2>Let's build something.</h2>
         <p class="lead">Open to senior and staff engineering roles across distributed systems, AI infrastructure, developer tooling, and platforms.</p>
         <div class="contact-cta">
-          <a class="btn btn-primary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a class="btn btn-primary" data-eu={emailUser} data-ed={emailDomain} data-show="address" href="#">
+            <span>{emailUser} <span aria-hidden="true">[at]</span> {emailDomain}</span>
+          </a>
         </div>
         <nav class="contact-socials" aria-label="Profiles">
           <ContactLinks links="social" />
@@ -163,13 +167,14 @@ for (const w of work) {
   import { toggleTheme } from '../scripts/theme';
   import { initReveal, initScrollSpy } from '../scripts/reveal';
   import { initModals } from '../scripts/modal';
-  import { initCountUp, initCardGlow } from '../scripts/effects';
+  import { initCountUp, initCardGlow, initEmail } from '../scripts/effects';
   document.getElementById('theme-toggle')?.addEventListener('click', () => toggleTheme());
   initReveal();
   initScrollSpy();
   initModals();
   initCountUp();
   initCardGlow();
+  initEmail();
 </script>
 
 <style>

@@ -1,11 +1,12 @@
 ---
 import { SITE } from '../config';
 import ContactLinks from './ContactLinks.astro';
+const [emailUser, emailDomain] = SITE.email.split('@');
 const metrics = [
   { num: 10, prefix: '', suffix: '+ yrs', label: 'shipping production software' },
   { num: 650, prefix: '', suffix: 'k+', label: 'devices monitored at scale' },
   { num: 15, prefix: '', suffix: '×', label: 'faster clean builds' },
-  { num: 20, prefix: '$', suffix: 'k/yr', label: 'infrastructure saved' },
+  { num: 50, prefix: '', suffix: '%', label: 'developer productivity gain' },
 ];
 ---
 <section id="top" class="hero">
@@ -19,7 +20,7 @@ const metrics = [
     <p class="tagline reveal" data-delay="2">{SITE.tagline}</p>
     <div class="cta reveal" data-delay="3">
       <a class="btn btn-primary" href="#work">View my work →</a>
-      <a class="btn btn-ghost" href={`mailto:${SITE.email}`}>Get in touch</a>
+      <a class="btn btn-ghost" data-eu={emailUser} data-ed={emailDomain} href="#">Get in touch</a>
     </div>
     <nav class="socials reveal" data-delay="3" aria-label="Profiles">
       <ContactLinks links="social" />

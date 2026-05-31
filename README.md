@@ -8,7 +8,7 @@
 
 ```
 10+ yrs shipping production software   ·   650k+ devices at scale
-15× faster clean builds                ·   $20k/yr infrastructure saved
+15× faster clean builds                ·   50% developer-productivity gain
 ```
 
 ---
@@ -28,20 +28,20 @@ integration, distributed data pipelines, and event-driven microservices on AWS.
 
 ## Things I've built
 
-### Topic Modernization — TurboTax Interview Screens
-Built the artifact-generation pipeline that drove migration of TurboTax interview screens from Intuit's legacy DSL to modern TypeScript on Fuego Player (React) — cutting medium-complexity migration from **1–2 weeks to 1–2 days**. A deterministic stage parses the legacy code into the screen flow, language files, and migration report; AI prompts then audit those screens for IRS compliance.
-`Topic Modernization` · `TypeScript` · `Fuego Player (React)` · `AI Compliance Audit` · `Developer Tooling`
+### TurboTax Interview Screen Modernization
+Built the artifact-generation pipeline that drove migration of TurboTax interview screens from a legacy proprietary DSL to modern TypeScript on the company's React-based screen player — cutting medium-complexity migration from **1–2 weeks to 1–2 days**. A deterministic stage parses the legacy code into the screen flow, language files, and migration report; AI prompts then audit those screens for IRS compliance.
+`Screen Modernization` · `TypeScript` · `React` · `AI Compliance Audit` · `Developer Tooling`
 
-### Form Conversion Service (FCS) Modernization
-Led the productionization of a new DSL that replaces FCS's legacy XML/XSLT conversion to the IRS MeF data model — owning the XML→DSL migration and the user tooling, including LSP-based editor support. **15× faster clean builds (60s → 4s)**.
-`FCS` · `DSL Productionization` · `LSP` · `IRS MeF` · `AI-Assisted Migration`
+### DSL Modernization for a Form-Conversion Service
+Led the productionization of a new DSL that replaces an internal form-conversion service's legacy XML/XSLT conversion to the IRS MeF data model — owning the XML→DSL migration and the user tooling, including LSP-based editor support. **15× faster clean builds (60s → 4s)**.
+`DSL Productionization` · `Compilers` · `LSP` · `IRS MeF` · `AI-Assisted Migration`
 
 ### IDE-Native Developer Tooling (VSCode Extensions)
 Unified diagnostics, deployment, and localization authoring into VSCode extensions — **projected +30%** developer velocity, and a real-time JSON validation extension that **measured +50%** tax-developer productivity while eliminating a class of malformed-JSON errors.
 `VSCode Extension API` · `MCP` · `Developer Experience` · `Tooling`
 
 ### Tax-Calculation Authoring Tool on AWS
-Architected an event-driven authoring & debugging tool on AWS (Lambda, ECS, EventBridge, CloudFormation) — then led its strategic deprecation when the platform moved on, **saving ~$20k/yr** in infrastructure.
+Architected an event-driven authoring & debugging tool on AWS (Lambda, ECS, EventBridge, CloudFormation) — then led its strategic deprecation when the platform moved on, with **five-figure annual infrastructure savings**.
 `AWS` · `Event-Driven` · `Lambda / ECS` · `Infrastructure-as-Code`
 
 ### Print-Engine Migration to GraalVM Native Image

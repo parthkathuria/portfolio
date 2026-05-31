@@ -1,12 +1,14 @@
 ---
 import { SITE } from '../config';
 import ContactLinks from './ContactLinks.astro';
+import Email from './Email.astro';
 const year = new Date().getFullYear();
 const commit = __COMMIT__;
 ---
 <footer class="container">
   <nav aria-label="Footer links">
-    <ContactLinks emailAsAddress />
+    <Email />
+    <ContactLinks links="social" />
   </nav>
   <p class="status">
     <span class="dot" aria-hidden="true"></span>
