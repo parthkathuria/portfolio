@@ -78,9 +78,10 @@ const metrics = [
   .socials :global(a:hover) { color: var(--fg); }
   .metrics {
     margin: 3rem 0 0; padding: 1.5rem 0 0; border-top: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; gap: .75rem 2.25rem;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem 1.5rem;
   }
   .metric { display: flex; align-items: baseline; gap: .5rem; }
+  @media (max-width: 640px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
   .metric dt { font-size: 1rem; font-weight: 700; color: var(--fg); letter-spacing: -.01em; }
   .metric dd { margin: 0; color: var(--muted); font-size: .9rem; }
 </style>
