@@ -38,21 +38,49 @@ export function initCountUp(): void {
   });
 }
 
-// Assemble obfuscated emails at runtime. Any <a data-eu data-ed> gets a real
-// mailto href; if it also has data-show="address", its inner <span> (or the
-// link text) is set to the full address. Static HTML never holds "user@domain".
+// Obfuscated email triggers. Any <a data-eu data-ed> assembles the address at
+// runtime (static HTML never holds "user@domain"); clicking copies it to the
+// clipboard with brief "Copied!" feedback instead of opening a mail client.
 export function initEmail(): void {
+  const showCopied = (a: HTMLElement) => {
+    const target = a.querySelector('span') ?? a;
+    const prev = target.textContent;
+    target.textContent = 'Copied!';
+    a.setAttribute('data-copied', '');
+    setTimeout(() => {
+      target.textContent = prev;
+      a.removeAttribute('data-copied');
+    }, 1500);
+  };
+
+  const copyText = async (text: string): Promise<boolean> => {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   document.querySelectorAll<HTMLAnchorElement>('a[data-eu][data-ed]').forEach((a) => {
     const u = a.dataset.eu;
     const d = a.dataset.ed;
     if (!u || !d) return;
     const addr = `${u}@${d}`;
-    a.href = `mailto:${addr}`;
     if (a.dataset.show === 'address') {
       const span = a.querySelector('span');
       if (span) span.textContent = addr;
       else a.textContent = addr;
     }
+    a.setAttribute('href', '#');
+    a.setAttribute('role', 'button');
+    a.setAttribute('aria-label', 'Copy email address');
+    a.title = 'Click to copy';
+    a.addEventListener('click', async (e) => {
+      e.preventDefault();
+      // Never navigate — if copy fails the address stays visible to select manually.
+      if (await copyText(addr)) showCopied(a);
+    });
   });
 }
 
