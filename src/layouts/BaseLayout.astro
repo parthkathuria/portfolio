@@ -1,18 +1,20 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config';
+import { SITE, CANONICAL_ORIGIN } from '../config';
 interface Props { title?: string; }
 const { title = `${SITE.name} — ${SITE.title}` } = Astro.props;
-const canonical = Astro.site
-  ? new URL(Astro.url.pathname, Astro.site).href
-  : Astro.url.href;
-const ogImage = new URL('/og.png?v=3', Astro.site).href;
+// Single-page site: canonical/OG always point at the primary (Cloudflare) origin
+// so the GitHub Pages mirror dedupes to one URL in search.
+const canonical = `${CANONICAL_ORIGIN}/`;
+const ogImage = `${CANONICAL_ORIGIN}/og.png?v=3`;
+// Base-prefixed so assets resolve on the GitHub Pages subpath (/portfolio) too.
+const base = import.meta.env.BASE_URL;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: SITE.name,
   jobTitle: SITE.title,
-  url: Astro.site?.href,
+  url: CANONICAL_ORIGIN,
   sameAs: [SITE.linkedin, SITE.github],
 };
 ---
@@ -21,9 +23,9 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="apple-touch-icon" href={`${base}favicon.png`} />
     <title>{title}</title>
     <meta name="description" content={SITE.description} />
     <link rel="canonical" href={canonical} />

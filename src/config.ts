@@ -8,6 +8,10 @@ export const SITE = {
   description:
     'Parth Kathuria — Senior Software Engineer with 10+ years building platform modernization programs, developer tooling, AI-native pipelines, and large-scale distributed systems.',
 };
+// Canonical/primary origin for SEO. Stays Cloudflare even when the site is
+// mirrored to GitHub Pages, so search engines dedupe to one URL.
+export const CANONICAL_ORIGIN = 'https://parthkathuria.pages.dev';
+
 export const SHOW_OSS = false;
 export const SHOW_RESUME = false;
 export const RESUME_PATH = '/Parth_Kathuria_Resume.pdf';
